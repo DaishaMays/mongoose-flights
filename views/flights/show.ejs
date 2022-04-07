@@ -20,24 +20,42 @@
         <div><%= flight.departs %></div>
         <div>Flight #: </div>
         <div><%= flight.flightNo %></div>
-        <div><% flight.destinations.forEach(function(m) {%> 
+        <!-- <div><% flight.destinations.forEach(function(m) { %> 
           <div>m.airport</div>
           <div>m.arrival</div>
-      <%    }); %></div>
+      <%    }); %></div> -->
     </section>
 
-    
-
-
+    <% if (flight.destinations.length) { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Destination</th>
+            <th>Arrival</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% flight.destinations.forEach(function(r) { %>
+            <tr>
+              <td><%= r.airport %></td>
+              <td><%= r.arrival %></td>
+              
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <h5>No Destinations Yet</h5>
+    <% } %>
 
 
     <br><br><h2>Add a Destination</h2>
 <form id="add-destination-form" method="POST"
   action="/flights/<%= flight._id %>/destinations">
   <label>Destination:</label>
-  <textarea name="airline"></textarea>
+  <textarea name="airport"></textarea>
   <label>Arrival:</label>
-  <textarea name="airline"></textarea>
+  <input type="date" value="Arrival">
   
   <input type="submit" value="Add Destination">
 </form>
